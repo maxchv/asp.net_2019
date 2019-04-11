@@ -1,4 +1,6 @@
-﻿Используя Visual Studio, создайте проект по шаблону ASP.NET Web Application. 
+﻿Видео занятия: https://youtu.be/JX3Nm0y_DtA
+
+Используя Visual Studio, создайте проект по шаблону ASP.NET Web Application. 
 Разработайте страницу с двумя ListBox. Первый контрол – «Список продуктов», 
 второй – «Корзина (выбранные продукты)».  
 
