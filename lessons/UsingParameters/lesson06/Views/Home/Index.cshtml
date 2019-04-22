@@ -1,0 +1,31 @@
+﻿@using lesson06.Models
+
+@model IEnumerable<Student>
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Id</td>
+            <td>@s.Name</td>
+            <td>@s.Age</td>
+            <td></td>
+        </tr>
+    }
+</table>
+<div>
+    @Html.ActionLink("Go to Add page", "Add", 
+        new {controller="Home"}, new{@class="link"})
+</div>

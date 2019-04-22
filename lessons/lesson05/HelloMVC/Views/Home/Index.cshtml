@@ -1,0 +1,28 @@
+﻿@model int?
+    @{
+        Layout = null;
+
+        const string title = "Home page";
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>@title</title>
+    </head>
+    <body>
+        <div>
+            <h1>@ViewBag.Title</h1>
+            <p>@ViewData["message"]</p>
+            <p>@TempData["flash"]</p>
+            <p>Id = @Model</p>
+        </div>
+        <div>
+            <p>@@</p>
+            <p><a href="mailto:shaptala@itstep.org">Send mail</a></p>
+            <p>@DateTime.Now.ToLongDateString()</p>
+        </div>
+    </body>
+</html>
