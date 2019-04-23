@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home page</h2>
+@Html.ActionLink("Go to control panel", "DoIt", new {area="Control", controller="Test", id=1})
+@Url.RouteUrl(new {area="Control"})
+
