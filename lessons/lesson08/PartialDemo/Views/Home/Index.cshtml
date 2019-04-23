@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*@Html.Partial("_Cars")*@
+@*@Html.Action("AllCars")*@
+<div id="cars"></div>
+@*@Html.Action("PartialResult", routeValues: new { id = 1 })*@
+
+<div>
+    @*Вызов метод CurrentDate класса Home, вывод результата*@
+    @Html.Action("CurrentDate")
+</div>
+
+@section Scripts
+{
+    <script>
+        console.log("Start: " + new Date());
+        $("#cars").text("Loading...");
+        $.get("/Home/AllCars",
+            (d) => {
+                console.log(d);
+                $("#cars").empty().append(d);
+                console.log("End: " + new Date());
+            });
+    </script>
+}

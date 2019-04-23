@@ -1,0 +1,8 @@
+﻿@model List<PartialDemo.Models.Car>
+
+<table>
+    @foreach (var car in Model)
+    {
+        @Html.Partial("_Car", car)
+    }
+</table>

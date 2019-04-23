@@ -1,4 +1,4 @@
-﻿video: https://youtu.be/t3TZJRm_9zk
+﻿video: https://youtu.be/cZF1ocgNemE
 
 Создать приложение для добавления, редактирования и отображения товаров.
 Должна присутствовать область Admin, в которую добавить контроллеры: Home, Product и Category

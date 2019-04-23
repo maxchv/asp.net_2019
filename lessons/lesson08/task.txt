@@ -1,4 +1,7 @@
-﻿Домашнее задание:
+﻿видео: 	https://youtu.be/4oGGbXNtEBE
+	https://youtu.be/jDOmQCWEJms
+
+Домашнее задание:
 
 В проекте HomeWork добавить шаблон и представления для верстки 
 сайта продажи/аренды недвижимости https://www.free-css.com/free-css-templates/page239/homestate
