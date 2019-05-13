@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using lesson11.Filters;
 
 namespace lesson11
 {
@@ -13,6 +14,7 @@ namespace lesson11
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalFilters.Filters.Add(new MyActionFilterAttribute());
         }
     }
 }
