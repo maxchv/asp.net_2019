@@ -1,3 +1,5 @@
+﻿видео: https://youtu.be/wPPLNjSPNCI
+
 Создайте проект по шаблону ASP.NET MVC. Добавьте в проект два класса Registration и Login.
 В модель Registration добавить свойства: Login, Password, ConfirmPassword, Email - строковые, ReceiveNews - логическое.
 В модель Login добавить свойства: Login, Password - строковые, RememberMe - логическое/
