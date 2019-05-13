@@ -11,6 +11,10 @@ namespace lesson11.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if (Request.Cookies["test"] != null)
+            {
+                return HttpNotFound();
+            }
             return View();
         }
     }
