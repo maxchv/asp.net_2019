@@ -13,7 +13,17 @@ namespace lesson12.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        //[Authorize(Users = "test@mail.com")]
+        [Authorize(Roles = "user,guest")]
+        public ActionResult AllowTestUser()
         {
             ViewBag.Message = "Your application description page.";
 

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using lesson12.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace lesson12.Controllers
 {
@@ -51,6 +52,15 @@ namespace lesson12.Controllers
                 _userManager = value;
             }
         }
+
+        private ApplicationRoleManager _roleManager;
+
+        public ApplicationRoleManager RoleManager
+        {
+            get { return _roleManager ?? ApplicationRoleManager.Create(); }
+            set { _roleManager = value; }
+        }
+
 
         //
         // GET: /Account/Login
@@ -153,7 +163,15 @@ namespace lesson12.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                
+
+                /* добавление пользователя к роли */
+                if (! await RoleManager.RoleExistsAsync("user"))
+                {
+                    await RoleManager.CreateAsync(new IdentityRole("user"));
+                }
+
+                await UserManager.AddToRoleAsync(user.Id, "user");
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
