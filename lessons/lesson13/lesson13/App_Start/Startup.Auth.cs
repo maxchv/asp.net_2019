@@ -58,11 +58,11 @@ namespace lesson13
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "asp.net.test.identity@gmail.com",
+                ClientSecret = "AIzaSyA6h6pQAToBuaDpoxuvWJJFRuY2i8P8_Mc"
+            });
         }
     }
 }
