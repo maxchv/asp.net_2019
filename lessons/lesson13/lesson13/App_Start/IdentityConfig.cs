@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,8 +20,20 @@ namespace lesson13
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            const string account = "asp.net.vasy@gmail.com";
+            var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(account, "Vasy123321")
+            };
+
+            var mail = new MailMessage(account, message.Destination)
+            {
+                Subject = message.Subject, Body = message.Body, IsBodyHtml = true
+            };
+
+            return smtpClient.SendMailAsync(mail);
         }
     }
 
@@ -53,11 +67,11 @@ namespace lesson13
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 3,
                 RequireNonLetterOrDigit = true,
-                RequireDigit = true,
+                RequireDigit = false,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults
