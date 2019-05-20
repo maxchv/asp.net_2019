@@ -14,5 +14,12 @@ namespace lesson14.Controllers
 
             return View();
         }
+
+        public ActionResult Workers()
+        {
+            ViewBag.Title = "Workers page";
+
+            return View();
+        }
     }
 }

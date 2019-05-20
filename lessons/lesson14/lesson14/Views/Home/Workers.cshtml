@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Workers";
+}
+
+<h2>Workers</h2>
+
+<table id="workers">
+    <thead>
+        <tr><th>Id</th><th>Name</th><th>Salary</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts {
+    <script>
+        var ep = "http://localhost:31390/api/v1/Worker";
+        $.getJSON(ep,
+            function(workers) {
+                console.dir(workers);
+                for (var w of workers) {
+                    $(`<tr><td>${w.Id}</td><td>${w.Name}</td><td>${w.Salary}</td></tr>`)
+                        .appendTo("#workers>tbody");
+
+                }
+            });
+    </script>
+}
