@@ -19,6 +19,7 @@ namespace lesson15
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseWebRoot("static") // <-- папка где будут находится статические файлы, по умолчанию - wwwroot
                 .UseStartup<Startup>();
     }
 }

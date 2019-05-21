@@ -43,7 +43,10 @@ namespace lesson15
             //    await context.Response.WriteAsync("<br/>End second");
             //});
             //app.UseMiddleware<TokenMiddleware>();
-            app.UseToken();
+            //app.UseToken();
+
+            app.UseStaticFiles(); // подключение статических файлов
+            //app.UseDirectoryBrowser();
             
             app.Map("/home", (_app) =>
             {
@@ -54,7 +57,7 @@ namespace lesson15
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync($"Page not found");
+                await context.Response.WriteAsync($"<head><link rel='stylesheet' href='/css/style.css'/></head>Page not found");
             });
         }
 
