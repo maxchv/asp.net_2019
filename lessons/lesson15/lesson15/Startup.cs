@@ -25,10 +25,44 @@ namespace lesson15
             {
                 app.UseDeveloperExceptionPage();
             }
+            // middleware - (промежуточный) обработчик HTTP запроса
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.ContentType = "text/html";
+            //    await next.Invoke(); // передача обработки запроса по цепочке обработчиков
+            //    await context.Response.WriteAsync("<br/>End first");
+            //});
+
+            //string a = "";
+
+            //app.Use(async (context, next) =>
+            //{
+            //    a = context.Request.Query["name"].ToString();
+            //    //await next.Invoke(); // передача обработки запроса по цепочке обработчиков
+            //    await context.Response.WriteAsync("<br/>End second");
+            //});
+
+            app.Map("/home", (_app) =>
+            {
+                _app.Run(async context => { await context.Response.WriteAsync("Home page"); });
+            });
+
+            app.Map("/index", Index);
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync($"Page not found");
             });
+        }
+
+        private void Index(IApplicationBuilder app)
+        {
+            app.Map("/test",  _app =>
+            {
+                _app.Run(async context => await context.Response.WriteAsync("Test page"));
+            });
+            app.Run(async context => { await context.Response.WriteAsync("Index page"); });
         }
     }
 }
