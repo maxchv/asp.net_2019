@@ -1,0 +1,7 @@
+1. Создать проект Asp.net Core на базе Empty шаблона 
+2. Добавить три middleware для обработки запросов:
+	через метод Map интерфейса IApplicationBuilder
+	через метод Use интерфейса IApplicationBuilder
+	через метод UseMiddleware интерфейса IApplicationBuilder
+3. Первый middleware должен возвращать главную страницу со
+   ссылками на две другие
