@@ -42,7 +42,9 @@ namespace lesson15
             //    //await next.Invoke(); // передача обработки запроса по цепочке обработчиков
             //    await context.Response.WriteAsync("<br/>End second");
             //});
-            app.UseMiddleware<TokenMiddleware>();
+            //app.UseMiddleware<TokenMiddleware>();
+            app.UseToken();
+            
             app.Map("/home", (_app) =>
             {
                 _app.Run(async context => { await context.Response.WriteAsync("Home page"); });

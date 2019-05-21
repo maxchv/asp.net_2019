@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace lesson15
@@ -27,6 +28,14 @@ namespace lesson15
             {
                 await _next.Invoke(context);
             }
+        }
+    }
+
+    public static class UseTokenExtention
+    {
+        public static void UseToken(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<TokenMiddleware>();
         }
     }
 }
