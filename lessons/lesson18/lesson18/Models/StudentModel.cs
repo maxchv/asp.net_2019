@@ -9,7 +9,9 @@ namespace lesson18.Models
     public class Student
     {
         public int Id { get; set; }
+        [DisplayName("Имя")]
         public string Name { get; set; }
+        [DisplayName("Возраст")]
         public int Age { get; set; }
         public virtual IEnumerable<SubjectMarks> SubjectsMarks { get; set; }
     }

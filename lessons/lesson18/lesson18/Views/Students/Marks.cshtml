@@ -1,0 +1,47 @@
+﻿@model IEnumerable<lesson18.Models.Subject>
+
+@{
+    ViewData["Title"] = "Marks";
+    var marks = new List<SelectListItem>();
+    for (var i = 1; i <= 12; i++)
+    {
+        marks.Add(new SelectListItem(i.ToString(), i.ToString()));
+    }
+    var student = ViewData["student"] as Student;
+}
+
+<h2>Marks</h2>
+
+<p>
+    Set marks for @student.Name
+</p>
+<form asp-action="Marks" asp-route-id="@student.Id">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Оценка
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DropDownList($"Subject-{item.Id}", marks, htmlAttributes: new {@class = "form-group"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Mark" class="btn btn-default"/>
+    </div>
+</form>
