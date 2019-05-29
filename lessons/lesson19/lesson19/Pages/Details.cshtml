@@ -1,0 +1,43 @@
+﻿@page
+@model lesson19.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ToDoItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDoItem.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDoItem.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDoItem.Start)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDoItem.Start)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDoItem.End)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDoItem.End)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDoItem.Done)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDoItem.Done)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ToDoItem.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,10 @@
+{
+  ""
+  "directory": "wwwroot/lib",
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "jquery": "3.4.1",
+    "bootstrap": "3.3.7"
+  }
+}
