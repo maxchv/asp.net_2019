@@ -6,9 +6,10 @@
 
 <div class="row">
     <div class="form-group col-sm-6">
-        <input id="msg" class="form-control">
+        <input disabled="disabled" id="msg" class="form-control">
     </div>
-    <input id="send" class="btn btn-default" type="button" value="Send" />
+    <input id="connect" class="btn btn-default" type="button" value="Connect" />
+    <input id="send" class="btn btn-primary" type="button" value="Send" />
 </div>
 <div class="row">
     <div id="log" class="col-sm-12"></div>
@@ -17,15 +18,68 @@
 @section Scripts
 {
     <script>
+        var webSocket;
+
+        const msgType = {
+            INFO: "info",
+            RECEIVE: "receive",
+            SEND: "send"
+        }
+
+        function log(msg, type = msgType.INFO) {
+            let info = "";
+            switch (type) {
+            case msgType.SEND:
+                info = "<span class='text-info'>Send message to server</span>";
+                break;
+            case msgType.RECEIVE:
+                info = "<span class='text-info'>Receive message from server</span>";
+                break;
+            case msgType.INFO:
+                info = "<span class='text-danger'>Info: </span>";
+                break;
+            default:
+                info = "<span class='text-danger'>Msg: </span>";
+                break;
+            }
+            $(`<p class='send'>${info}: ${msg} at ${new Date().toLocaleTimeString()}</p>`)
+                .appendTo("#log");
+        }
+
+        $("#connect").click(() => {
+            if (webSocket) {
+                webSocket.close();
+                webSocket = undefined;
+                $("#msg").attr("disabled", "disabled");
+                $("#connect").val("Connect").removeClass("btn-danger").addClass("btn-default");
+            } else {
+                webSocket = new WebSocket("ws://localhost:50822/ws");
+                webSocket.onopen = () => {
+                    log("Connected to server successfully", msgType.INFO);
+                };
+                webSocket.onclose = () => {
+                    log("Connection closed");
+                }
+                webSocket.onerror = (err) => {
+                    log(`Error ${err}`);
+                }
+                webSocket.onmessage = (data) => {
+                    console.dir(data);
+                    log(data.data, msgType.RECEIVE);
+                }
+                $("#msg").removeAttr("disabled");
+                $("#connect").val("Disconnect").removeClass("btn-default").addClass("btn-danger");
+            }
+        });
+
         $("#send").click(() => {
             let msg = $("#msg").val();
-            $("#msg").val("");
-            $(`<p class='send'><span class='text-info'>Send message to server</span>: ${msg} at ${new Date().toLocaleTimeString()}</p>`)
-                .appendTo("#log");
-
-            // Send message 
-
-
+            // Send message
+            if (webSocket && msg) {
+                $("#msg").val("");
+                log(msg, msgType.SEND);
+                webSocket.send(msg);
+            }
         });
     </script>
 }

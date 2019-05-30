@@ -51,6 +51,7 @@ namespace lesson20
                 var path = context.Request.Path;
                 if (path == "/ws" && context.WebSockets.IsWebSocketRequest)
                 {
+                    // ReSharper disable once CommentTypo
                     // запрос на установку соедиенения по WebSocket
                     var webSocket = await context.WebSockets.AcceptWebSocketAsync();
                     var buffer = new byte[1024 * 4]; // буфер
@@ -59,8 +60,8 @@ namespace lesson20
                     while (!receive.CloseStatus.HasValue) // до тех пор, пока открыто соединение
                     {
                         // отправляем ответ
-                        await webSocket.SendAsync(new ArraySegment<byte>(buffer), receive.MessageType, 
-                                                  receive.EndOfMessage, CancellationToken.None);
+                        await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, receive.Count), 
+                                                  receive.MessageType, receive.EndOfMessage, CancellationToken.None);
                         // получаем очередное сообщение
                         receive = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                     }
