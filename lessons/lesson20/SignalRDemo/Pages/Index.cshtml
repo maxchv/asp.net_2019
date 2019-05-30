@@ -1,0 +1,93 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="form-group col-sm-6">
+        <input disabled="disabled" id="msg" class="form-control">
+    </div>
+    <input id="connect" class="btn btn-default" type="button" value="Connect" />
+    <input id="send" class="btn btn-primary" type="button" value="Send" />
+</div>
+<div class="row">
+    <div id="log" class="col-sm-12"></div>
+</div>
+
+@section Scripts
+    {
+    <script src="lib/aspnet-signalr/signalr.js"></script>
+    <script>
+        var connection;
+
+        const msgType = {
+            INFO: "info",
+            RECEIVE: "receive",
+            SEND: "send",
+            ERROR: "error"
+        }
+
+        function log(msg, type = msgType.INFO) {
+            let info = "";
+            switch (type) {
+                case msgType.SEND:
+                    info = "<span class='text-info'>Send message to server</span>";
+                    break;
+                case msgType.RECEIVE:
+                    info = "<span class='text-info'>Receive message from server</span>";
+                    break;
+                case msgType.INFO:
+                    info = "<span class='text-danger'>Info: </span>";
+                    break;
+                case msgType.ERROR:
+                    info = "<span class='text-error'>Error: </span>";
+                    break;
+                default:
+                    info = "<span class='text-danger'>Msg: </span>";
+                    break;
+            }
+            $(`<p class='send'>${info}: ${msg} at ${new Date().toLocaleTimeString()}</p>`)
+                .appendTo("#log");
+        }
+
+        $("#connect").click(() => {
+            if (connection) {
+                connection.close();
+                connection = undefined;
+                $("#msg").attr("disabled", "disabled");
+                $("#connect").val("Connect").removeClass("btn-danger").addClass("btn-default");
+            } else {
+                connection = new signalR.HubConnectionBuilder()
+                    .withUrl("/echo").build();
+
+                connection.on("ReceiveMessage",
+                    (username, message) => {
+                        log(`Receive message ${message} from ${username}`, msgType.RECEIVE);
+                    });
+                connection.start().then(() => {
+                    $("#msg").removeAttr("disabled");
+                    $("#connect").val("Disconnect").removeClass("btn-default").addClass("btn-danger");
+                }).catch((err) => {
+                    log(err, msgType.ERROR);
+                });
+
+            }
+        });
+
+        $("#send").click(() => {
+            let msg = $("#msg").val();
+            // Send message
+            if (connection && msg) {
+                log(msg, msgType.SEND);
+                connection.invoke("SendMessage", "username", msg)
+                    .then(() => {
+                        $("#msg").val("");
+                    })
+                    .catch((err) => {
+                        log(err, msgType.ERROR);
+                    });
+            }
+        });
+    </script>
+}

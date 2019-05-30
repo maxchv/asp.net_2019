@@ -51,7 +51,6 @@ namespace lesson20
                 var path = context.Request.Path;
                 if (path == "/ws" && context.WebSockets.IsWebSocketRequest)
                 {
-                    // ReSharper disable once CommentTypo
                     // запрос на установку соедиенения по WebSocket
                     var webSocket = await context.WebSockets.AcceptWebSocketAsync();
                     var buffer = new byte[1024 * 4]; // буфер
