@@ -1,0 +1,16 @@
+﻿Видео: https://youtu.be/3jw2gdiMcZ8
+
+Создать базовый маршрут {controller}/{action}/{*id}
+
+Создать три обработчика (handlera):
+	HomeHandler.ashx -> Home.aspx
+	AboutHandler.ashx -> About.aspx
+	UserHandler.ashx -> User.aspx
+
+По умолчанию controller - Home, action - Index
+
+Для User есть дополнительные action:	
+	Index - сылки на action List, Add
+	List - отображает всех пользователей в виде таблицы
+	Add  - добавляет нового пользователя (post запрос)
+	Display/1 - отображает подробную информацию о пользователе

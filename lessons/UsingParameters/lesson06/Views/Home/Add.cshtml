@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Add Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="@Url.Action("Add")" method="post">
+    <label>
+        Name: <input name="Name" required="required" title="Требуется ввести имя" />
+    </label>
+    <br />
+    <label>
+        Age: <input name="Age" type="number" min="9" max="65" required="required" />
+    </label>
+    <br />
+    <input type="submit" />
+</form>
